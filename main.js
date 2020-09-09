@@ -7,7 +7,7 @@ const rainbowPen = document.querySelector(".rainbow");
 const pencil = document.querySelector(".pencil");
 
 // Declare initial values
-let penColor = "#000";
+let penColor;
 let gridSidesLength = 16;
 let maxGridSize = 500;
 let cell;
