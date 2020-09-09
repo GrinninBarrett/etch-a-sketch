@@ -1,36 +1,35 @@
-// Declare elements
+// Declare buttons
 let gridContainer = document.querySelector("#grid-container");
-const resizeButton = document.querySelector(".resize");
+const resize = document.querySelector(".resize");
 const clear = document.querySelector(".clear");
 const blackPen = document.querySelector(".black");
 const rainbowPen = document.querySelector(".rainbow");
 const pencil = document.querySelector(".pencil");
 
 // Declare initial values
-let penColor = "#000";
-let gridSidesLength = 16;
+let penColor = #000;
+let gridSides = 16;
 let maxGridSize = 500;
 let cell;
 
 clear.addEventListener("click", generateGrid);
 
-resizeButton.addEventListener("click", () => {
-    alert("FUCK");
-});
-
 
 
 function generateGrid() {
-    let cellSize = (maxGridSize / gridSidesLength) + "px";
+    let cellSize = (maxGridSize / gridSides) + "px";
 
-    gridContainer.style["grid-template"] =
-     `repeat(${gridSidesLength}, ${cellSize}) / repeat(${gridSidesLength}, ${cellSize})`;
+    gridContainer.style["grid-template"] = `repeat(${gridSides}, ${cellSize}) / repeat(${gridSides}, ${cellSize})`;
 
-    for (let i = 0; i < gridSidesLength; i++) {
-        for (let j = 0; j < gridSidesLength; j++){
+    for (let i = 0; i < gridSides; i++) {
+        for (let j = 0; j < gridSides; j++){
             cell = document.createElement("div");
             cell.classList.add("cell");
             gridContainer.appendChild(cell);
         }
     }
+}
+
+function clearGrid() {
+
 }
