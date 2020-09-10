@@ -11,7 +11,7 @@ function generateRainbowText(element) {
     element.innerHTML = "";
     for (let i = 0; i < text.length; i++) {
       let charElem = document.createElement("span");
-      charElem.style.color = "hsl(" + (360 * i / text.length) + ",100%,35%)";
+      charElem.style.color = "hsl(" + (360 * i / text.length) + ",100%,40%)";
       charElem.innerHTML = text[i];
       element.appendChild(charElem);
     }
