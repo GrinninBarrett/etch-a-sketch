@@ -20,9 +20,58 @@ if (screen.matches) {
 let grid;
 let cellSize;
 let cell;
+let lastSelection;
+let darkness;
 
-resizeButton.addEventListener("click", resizeGrid);
+blackPen.addEventListener("click", blackStart);
+rainbowPen.addEventListener("click", rainbowStart);
+pencil.addEventListener("click", pencilStart);
 clear.addEventListener("click", clearGrid);
+resizeButton.addEventListener("click", resizeGrid);
+
+
+function blackStart() {
+    for (let i = 0; i < grid.length; i++) {
+        grid[i].removeEventListener("mouseover", getRainbowColors);
+        grid[i].removeEventListener("mouseover", shadeCells);
+    }
+    penColor = "#000";
+    lastSelection = "black";
+    draw();
+}
+
+function rainbowStart() {
+    for (let i = 0; i < grid.length; i++) {
+        grid[i].removeEventListener("mouseover", shadeCells);
+        grid[i].addEventListener("mouseover", getRainbowColors);
+    }
+    lastSelection = "rainbow";
+    draw();
+}
+
+let getRainbowColors = function() {
+    let r = Math.floor(Math.random() * 256);
+    let g = Math.floor(Math.random() * 256);
+    let b = Math.floor(Math.random() * 256);
+    penColor = `rgb(${r}, ${g}, ${b})`;
+};
+
+function pencilStart() {
+    for (let i = 0; i < grid.length; i++) {
+        grid[i].removeEventListener("mouseover", getRainbowColors);
+        grid[i].addEventListener("mouseover", shadeCells);
+        grid[i].setAttribute("darknessCounter", 240);
+    }
+    lastSelection = "pencil";
+    draw();
+}
+
+let shadeCells = function() {
+    darkness = this.getAttribute("darknessCounter");
+    darkness -= 24;
+    penColor = `rgb(${darkness}, ${darkness}, ${darkness})`;
+    this.setAttribute("darknessCounter", darkness);
+}
 
 function getCellSize() {
     let cellSize = (maxGridSize / gridSidesLength) + "px";
@@ -42,16 +91,23 @@ function generateGrid(gridSidesLength) {
             gridContainer.appendChild(cell);
         }
     }
+    grid = document.querySelectorAll(".cell");
+
+    if (lastSelection === "rainbow") {
+        rainbowStart();
+    } else if (lastSelection === "pencil") {
+        pencilStart();
+    } else {
+        blackStart();
+    }
     gridStatus.textContent = `Current grid dimensions: ${gridSidesLength} x ${gridSidesLength}`;
 }
 
 function draw() {
-    grid = document.querySelectorAll(".cell");
-
     for (let i = 0; i < grid.length; i++) {
         grid[i].addEventListener("mouseover", function() {
             grid[i].style.backgroundColor = penColor;
-        });
+        });  
     }
 }
 
@@ -59,6 +115,7 @@ function clearGrid() {
     grid = document.querySelectorAll(".cell");
     for (let i = 0; i < grid.length; i++) {
         grid[i].style.backgroundColor = "#FFF";
+        grid[i].setAttribute("darknessCounter", 240);
     }
 }
 
@@ -69,6 +126,7 @@ function resizeGrid() {
             alert("Try again - that's not within range!");
         }
     } else {
+        clearGrid();
         while (gridContainer.hasChildNodes()) {
             gridContainer.removeChild(gridContainer.firstChild);
         }

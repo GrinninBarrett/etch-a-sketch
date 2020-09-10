@@ -62,6 +62,10 @@ h1 {
     box-shadow: inset 0px 0px 3px #888;
 }
 
+.last-chosen {
+    background-color: rgb(165, 165, 165)
+}
+
 .status {
     font-family: 'Cabin Sketch', cursive;
 }
