@@ -5,18 +5,33 @@ const clear = document.querySelector(".clear");
 const blackPen = document.querySelector(".black");
 const rainbowPen = document.querySelector(".rainbow");
 const pencil = document.querySelector(".pencil");
+const buttons = document.querySelectorAll(".controls");
 const gridStatus = document.querySelector(".status");
 
 // Declare initial values
 let penColor = "#000";
 let gridSidesLength = 16;
-let maxGridSize;
-let screen = window.matchMedia("(max-width: 700px)");
-if (screen.matches) {
-    maxGridSize = 400;
-} else {
-    maxGridSize = 600;
+let gridSize;
+let maxGridSize = function() {
+    if (window.innerWidth <= 700) {
+        gridSize = 350;
+    } else if (window.innerWidth > 700) {
+        gridSize = 600;
+    }
+    return gridSize;
 }
+
+let timeout;
+window.addEventListener("resize", () => {
+    if (!timeout) {
+        timeout = setTimeout(function () {
+            timeout = null;
+            generateGrid(gridSidesLength);
+            draw();
+        }, 500);
+    }
+}, false);
+
 let grid;
 let cellSize;
 let cell;
@@ -35,6 +50,10 @@ function blackStart() {
         grid[i].removeEventListener("mouseover", getRainbowColors);
         grid[i].removeEventListener("mouseover", shadeCells);
     }
+    for (let i = 0; i < buttons.length; i++) {
+        buttons[i].classList.remove("last-chosen");
+    }
+    blackPen.classList.add("last-chosen");
     penColor = "#000";
     lastSelection = "black";
     draw();
@@ -45,6 +64,9 @@ function rainbowStart() {
         grid[i].removeEventListener("mouseover", shadeCells);
         grid[i].addEventListener("mouseover", getRainbowColors);
     }
+    for (let i = 0; i < buttons.length; i++) {
+        buttons[i].classList.remove("last-chosen");
+    }    rainbowPen.classList.add("last-chosen");
     lastSelection = "rainbow";
     draw();
 }
@@ -62,6 +84,9 @@ function pencilStart() {
         grid[i].addEventListener("mouseover", shadeCells);
         grid[i].setAttribute("darknessCounter", 240);
     }
+    for (let i = 0; i < buttons.length; i++) {
+        buttons[i].classList.remove("last-chosen");
+    }    pencil.classList.add("last-chosen");
     lastSelection = "pencil";
     draw();
 }
@@ -74,7 +99,7 @@ let shadeCells = function() {
 }
 
 function getCellSize() {
-    let cellSize = (maxGridSize / gridSidesLength) + "px";
+    let cellSize = (maxGridSize() / gridSidesLength) + "px";
     return cellSize;
 }
 

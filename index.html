@@ -10,19 +10,28 @@
     <body>
         <div id="title-container">
             <h1>Etch-a-Sketch</h1>
-            <p id="author">by GrinninBarrett</p>
         </div>
         <div id="game-container">
             <div id="buttons-container">
-                <button class="controls resize">Resize Grid</button>
-                <button class="controls clear">Clear Grid</button>
                 <button class="controls black">Black</button>
                 <button class="controls rainbow">Rainbow</button>
                 <button class="controls pencil">Pencil</button>
+                <button class="controls resize">Resize Grid</button>
+                <button class="controls clear">Clear Grid</button>
             </div>
-            <p class="status"></p>
-            <div id="grid-container"></div>
+            <div id="grid-status-container">
+                <p class="status"></p>
+                <div id="grid-container"></div>
+            </div>
+            <div id="instructions">
+                <ul class="instructions-items">
+                    <li>Hover to draw</li>
+                    <li class="middle">Change colors</li>
+                    <li>Change grid size</li>
+                </ul>
+            </div>
         </div>
+        <footer id="author">by GrinninBarrett 2020</footer>
         <script src="scripts/main.js"></script>
         <script src="scripts/rainbow.js"></script>
     </body>
