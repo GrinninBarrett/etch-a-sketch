@@ -23,12 +23,40 @@
                 <p class="status"></p>
                 <div id="grid-container"></div>
             </div>
-            <div id="instructions">
-                <ul class="instructions-items">
-                    <li>Hover to draw</li>
-                    <li class="middle">Change colors</li>
-                    <li>Change grid size</li>
-                </ul>
+            <div id="choose-color">
+                <button class="choose controls">Custom Color Picker</button>
+            </div>
+        </div>
+        <div id="modal-root">
+            <div id="modal">
+                <div class="close-button">
+                    <button aria-label="Close Result Modal Box" class="close">&times;</button>
+                </div>
+                <div class="modal-content">
+                    <p>Create a color using RGB values:</p>
+                    <div id="sliders">
+                        <fieldset>
+                            <label for="r">R</label>
+                            <input type="range" min="0" max="255" id="red" step="1" value="75">
+                            <output for="r" id="r_out">75</output>
+                        </fieldset>  
+                          
+                        <fieldset>
+                            <label for="g">G</label>
+                            <input type="range" min="0" max="255" id="green" step="1" value="255">
+                            <output for="g" id="g_out">255</output>
+                        </fieldset>
+                          
+                        <fieldset>
+                            <label for="b">B</label>
+                            <input type="range" min="0" max="255" id="blue" step="1" value="175">
+                            <output for="b" id="b_out">175</output>
+                        </fieldset>
+                    </div>
+                    <div id="color-preview">
+                        <button id="custom-color-accept">OK</button>
+                    </div>
+                </div>
             </div>
         </div>
         <footer id="author">by GrinninBarrett 2020</footer>
