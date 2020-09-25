@@ -1,5 +1,6 @@
 // Declare buttons and other elements
 let gridContainer = document.querySelector("#grid-container");
+const startButton = document.querySelector("#start");
 const resizeButton = document.querySelector(".resize");
 const clear = document.querySelector(".clear");
 const blackPen = document.querySelector(".black");
@@ -24,6 +25,7 @@ const customColorAccept = document.querySelector("#custom-color-accept");
 
 
 // Declare other initial values
+let isDrawing = false;
 let penColor = "#000";
 let rValue = redSlider.value;
 let gValue = greenSlider.value;
@@ -51,13 +53,27 @@ window.addEventListener("resize", () => {
         timeout = setTimeout(function () {
             timeout = null;
             generateGrid(gridSidesLength);
-            draw();
         }, 500);
     }
 }, false);
 
 
 //Add event listeners for all controls
+startButton.addEventListener("click", () => {
+    if (isDrawing) {
+        stop();
+        isDrawing = false;
+        startButton.textContent = "Start";
+        startButton.style.backgroundColor = "rgb(110, 255, 161)";
+        stop();
+    } else {
+        draw();
+        isDrawing = true;
+        startButton.textContent = "Stop";
+        startButton.style.backgroundColor = "rgb(255, 100, 110)";
+        draw();
+    }
+});
 blackPen.addEventListener("click", blackStart);
 rainbowPen.addEventListener("click", rainbowStart);
 pencil.addEventListener("click", pencilStart);
@@ -97,6 +113,7 @@ modalRoot.addEventListener("click", function(event) {
 customColorAccept.addEventListener("click", () => {
     modalRoot.style.display = "none";
     modal.style.dispaly = "none";
+    stop();
 });
 
 //Black pen
@@ -111,7 +128,9 @@ function blackStart() {
     blackPen.classList.add("last-chosen");
     penColor = "#000";
     lastSelection = "black";
-    draw();
+    if (isDrawing) {
+        draw();
+    }
 }
 
 //Rainbow pen
@@ -125,7 +144,9 @@ function rainbowStart() {
     }
     rainbowPen.classList.add("last-chosen");
     lastSelection = "rainbow";
-    draw();
+    if (isDrawing) {
+        draw();
+    }
 }
 let getRainbowColors = function() {
     let r = Math.floor(Math.random() * 256);
@@ -146,7 +167,9 @@ function pencilStart() {
     }
     pencil.classList.add("last-chosen");
     lastSelection = "pencil";
-    draw();
+    if (isDrawing) {
+        draw();
+    }
 }
 let shadeCells = function() {
     darkness = this.getAttribute("darknessCounter");
@@ -168,7 +191,9 @@ function customColorStart() {
     chooseColor.classList.add("last-chosen");
     lastSelection = "customColor";
     getCustomColor();
-    draw();
+    if (isDrawing) {
+        draw();
+    }
 }
 let getCustomColor = function() {
     rValue = redSlider.value;
@@ -219,6 +244,16 @@ function draw() {
     }
 }
 
+function stop() {
+    for (let i = 0; i < grid.length; i++) {
+        grid[i].removeEventListener("mouseover", function() {
+            grid[i].style.backgroundColor = penColor;
+        });
+        grid[i].removeEventListener("mouseover", getRainbowColors);
+        grid[i].removeEventListener("mouseover", shadeCells);
+    }
+}
+
 
 function clearGrid() {
     for (let i = 0; i < grid.length; i++) {
@@ -239,10 +274,8 @@ function resizeGrid() {
             gridContainer.removeChild(gridContainer.firstChild);
         }
         generateGrid(gridSidesLength);
-        draw();
     }
 }
 
 
 generateGrid(gridSidesLength);
-draw();
