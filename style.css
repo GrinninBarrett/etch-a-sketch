@@ -21,7 +21,7 @@ h1 {
 }
 
 #start {
-    margin-bottom: 16px;
+    margin-bottom: 5px;
     font-size: 1.3rem;
     background-color: rgb(147, 255, 161);
 }
@@ -97,19 +97,6 @@ h1 {
     align-items: center;
     justify-content: center;
 }
-
-/* #instructions {
-    font-family: "Cabin Sketch", cursive;
-    font-size: 1rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-}
-
-.instructions-items {
-    line-height: 50px;
-} */
 
 #author {
     font-family: "Cabin Sketch", cursive;
@@ -275,6 +262,10 @@ input:hover {
     #start {
         margin-bottom: 10px;
         font-size: 0.8rem;
+    }
+
+    #buttons-container {
+        margin: 10px auto;
     }
 
     .controls {
