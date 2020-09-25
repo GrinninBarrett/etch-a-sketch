@@ -62,15 +62,11 @@ window.addEventListener("resize", () => {
 startButton.addEventListener("click", () => {
     if (isDrawing) {
         stop();
-        isDrawing = false;
-        startButton.textContent = "Start";
-        startButton.style.backgroundColor = "rgb(110, 255, 161)";
-        stop();
     } else {
-        draw();
         isDrawing = true;
         startButton.textContent = "Stop";
         startButton.style.backgroundColor = "rgb(255, 100, 110)";
+        generateGrid(gridSidesLength);
         draw();
     }
 });
@@ -103,11 +99,13 @@ blueSlider.addEventListener("input", () => {
 close.addEventListener("click", () => {
     modalRoot.style.display = "none";
     modal.style.dispaly = "none";
+    stop();
 });
 modalRoot.addEventListener("click", function(event) {
     if (event.target == modalRoot) {
         modalRoot.style.display = "none";
         modal.style.dispaly = "none";
+        stop();
     }
 });
 customColorAccept.addEventListener("click", () => {
@@ -126,26 +124,29 @@ function blackStart() {
         buttons[i].classList.remove("last-chosen");
     }
     blackPen.classList.add("last-chosen");
-    penColor = "#000";
     lastSelection = "black";
     if (isDrawing) {
+        penColor = "#000";
         draw();
     }
 }
 
 //Rainbow pen
 function rainbowStart() {
-    for (let i = 0; i < grid.length; i++) {
-        grid[i].removeEventListener("mouseover", shadeCells);
-        grid[i].addEventListener("mouseover", getRainbowColors);
-    }
     for (let i = 0; i < buttons.length; i++) {
         buttons[i].classList.remove("last-chosen");
     }
     rainbowPen.classList.add("last-chosen");
     lastSelection = "rainbow";
     if (isDrawing) {
-        draw();
+        for (let i = 0; i < grid.length; i++) {
+            grid[i].removeEventListener("mouseover", shadeCells);
+            grid[i].addEventListener("mouseover", getRainbowColors);
+        }
+        if (isDrawing) {
+            getRainbowColors();
+            draw();
+        }
     }
 }
 let getRainbowColors = function() {
@@ -157,18 +158,20 @@ let getRainbowColors = function() {
 
 //Pencil
 function pencilStart() {
-    for (let i = 0; i < grid.length; i++) {
-        grid[i].removeEventListener("mouseover", getRainbowColors);
-        grid[i].addEventListener("mouseover", shadeCells);
-        grid[i].setAttribute("darknessCounter", 240);
-    }
     for (let i = 0; i < buttons.length; i++) {
         buttons[i].classList.remove("last-chosen");
     }
     pencil.classList.add("last-chosen");
     lastSelection = "pencil";
     if (isDrawing) {
-        draw();
+        for (let i = 0; i < grid.length; i++) {
+            grid[i].removeEventListener("mouseover", getRainbowColors);
+            grid[i].addEventListener("mouseover", shadeCells);
+            grid[i].setAttribute("darknessCounter", 240);
+        }
+        if (isDrawing) {
+            draw();
+        }
     }
 }
 let shadeCells = function() {
@@ -180,17 +183,18 @@ let shadeCells = function() {
 
 //Custom color picker
 function customColorStart() {
-
-    for (let i = 0; i < grid.length; i++) {
-        grid[i].removeEventListener("mouseover", getRainbowColors);
-        grid[i].removeEventListener("mouseover", shadeCells);
-    }
     for (let i = 0; i < buttons.length; i++) {
         buttons[i].classList.remove("last-chosen");
     }
     chooseColor.classList.add("last-chosen");
     lastSelection = "customColor";
-    getCustomColor();
+    if (isDrawing) {
+        for (let i = 0; i < grid.length; i++) {
+            grid[i].removeEventListener("mouseover", getRainbowColors);
+            grid[i].removeEventListener("mouseover", shadeCells);
+        }
+        getCustomColor();
+    }
     if (isDrawing) {
         draw();
     }
@@ -218,18 +222,20 @@ function generateGrid(gridSidesLength) {
         }
     }
     grid = document.querySelectorAll(".cell");
-
-    if (lastSelection === "rainbow") {
-        rainbowStart();
-    } else if (lastSelection === "pencil") {
-        pencilStart();
-    } else if (lastSelection === "customColor") {
-        customColorStart();
-    } else {
-        blackStart();
+    if (isDrawing) {
+        if (lastSelection === "rainbow") {
+            rainbowStart();
+        } else if (lastSelection === "pencil") {
+            pencilStart();
+        } else if (lastSelection === "customColor") {
+            customColorStart();
+        } else {
+            blackStart();
+        }
     }
     gridStatus.textContent = `Current grid dimensions: ${gridSidesLength} x ${gridSidesLength}`;
 }
+
 function getCellSize() {
     let cellSize = (maxGridSize() / gridSidesLength) + "px";
     return cellSize;
@@ -245,6 +251,10 @@ function draw() {
 }
 
 function stop() {
+    isDrawing = false;
+    startButton.textContent = "Start";
+    startButton.style.backgroundColor = "rgb(110, 255, 161)";
+    penColor = undefined;
     for (let i = 0; i < grid.length; i++) {
         grid[i].removeEventListener("mouseover", function() {
             grid[i].style.backgroundColor = penColor;
@@ -275,6 +285,7 @@ function resizeGrid() {
         }
         generateGrid(gridSidesLength);
     }
+    stop();
 }
 
 
