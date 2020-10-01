@@ -233,7 +233,9 @@ function generateGrid(gridSidesLength) {
             blackStart();
         }
     }
-    gridStatus.textContent = `Current grid dimensions: ${gridSidesLength} x ${gridSidesLength}`;
+    if (gridSidesLength !== null) {
+        gridStatus.textContent = `Current grid dimensions: ${gridSidesLength} x ${gridSidesLength}`;
+    }
 }
 
 function getCellSize() {
@@ -278,6 +280,7 @@ function resizeGrid() {
     if (gridSidesLength > 100 || gridSidesLength < 1) {
         if (typeof(gridSidesLength) !== "object") {
             alert("Try again - that's not within range!");
+            resizeGrid();
         }
     } else {
         while (gridContainer.hasChildNodes()) {
