@@ -2,6 +2,10 @@
 
 This project is part of the Odin Project [curriculum](https://www.theodinproject.com/paths/foundations/courses/foundations/lessons/etch-a-sketch-project). The purpose of this project was to build DOM manipulation skills using JavaScript.
 
+## Link to Live Application
+[Etch-a-Sketch](https://grinninbarrett.github.io/etch-a-sketch)
+
+
 ## Technologies Used
 * HTML
 * CSS
