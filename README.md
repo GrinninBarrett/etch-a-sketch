@@ -1,4 +1,6 @@
-# Etch-a-Sketch  
+# Etch-a-Sketch
+
+This application is a pixel drawing board, built upon the concept of the famous Etch-a-Sketch. Users can adjust the dimensions of the canvas, change colors, start and stop the drawing mechanism, and clear the board.
 
 This project is part of the Odin Project [curriculum](https://www.theodinproject.com/paths/foundations/courses/foundations/lessons/etch-a-sketch-project). The purpose of this project was to build DOM manipulation skills using JavaScript.
 
@@ -6,10 +8,26 @@ This project is part of the Odin Project [curriculum](https://www.theodinproject
 [Etch-a-Sketch](https://grinninbarrett.github.io/etch-a-sketch)
 
 
-## Technologies Used
-* HTML
-* CSS
-* JavaScript
+## Table of Contents
+  * [Technologies](#technologies)
+  * [Functionality](#functionality)
+  * [Things I Learned](#things-i-learned)
+  * [Future Development](#future-development)
+  * [Contact](#contact)
+  * [License](#license)
+
+
+## Functionality
+
+![Application Demo](./images/demo.gif)
+
+
+## Technologies
+
+![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)&nbsp;
+![CSS](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)&nbsp;
+![HTML](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)&nbsp;
+
 
 ## Things I Learned
 
@@ -22,20 +40,17 @@ This project is part of the Odin Project [curriculum](https://www.theodinproject
 - The biggest new thing I encountered with this were the range inputs, or "sliders". These are for the user to be able to manually choose individual RGB values to fully customize the color. I had never used these, but they weren't crazy difficult to understand the basics of. I think I will need to return to these to create better browser compatibility (something I need to learn more about in general).
 - I'm still trying to get better and more comfortable/fluent with CSS and deciding which type of <code>display</code> is best for a given situation. The modal layout wasn't as easy to figure out as I liked. What I felt like should have only taken a couple of minutes took more like an hour. I think in my next similar project, I may try to familiarize myself with Bootstrap, but it feels somehow like I should first get really good at writing my own CSS code from scratch so I can understand what's going on "under the hood" of something like Bootstrap.
 
-## Ideas for Improvement
+## Future Development
 - Regarding the start/stop button, it might be good to add an "always on" option, so users can choose whether to need to use the start/stop button or not. This would simply disable all the code used with the start/stop button and return it to the original methods I used before adding that button. 
+- I would also like to add a button for users to take a screenshot of their drawing, saving immediately to their Downloads folder.
+
+
+## Contact
+Email me any time with questions, comments, or cat/dog photos! - ctbarrett.tech@gmail.com
+
 
 ## License
 
-MIT License
+&copy; 2020 Charles Tucker Barrett
 
-Copyright (c) 2020 Charles Tucker Barrett
-
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-
-## Contact Me
-* ctbarrett.tech@gmail.com
+[MIT License](https://opensource.org/licenses/MIT)
